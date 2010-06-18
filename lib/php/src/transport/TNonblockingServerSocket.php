@@ -1,5 +1,6 @@
 <?php
 class TNonblockingServerSocket extends TServerTransport {
+	public $callback;
 	protected $port_ = 0;
 	protected $handle_;
 	protected $errno_ = 0;
@@ -8,15 +9,15 @@ class TNonblockingServerSocket extends TServerTransport {
 	protected $serverEvent_;
 
 	//
-	public function __construct($port) {
+	public function __construct($host = 'localhost', $port = '9090') {
 		$this->port_ = $port;
-		$this->handle_ = stream_socket_server("tcp://0.0.0.0:{$this->port_}", $this->errno_, $this->errstr_);
 	}
 
 	/**
 	 * Start listening
 	 */
 	public function listen() {
+		$this->handle_ = stream_socket_server("tcp://$host:$port", $this->errno_, $this->errstr_);
 		stream_set_blocking($this->handle_, 0); // no blocking
 
 		$this->base_ = event_base_new();
@@ -54,9 +55,9 @@ class TNonblockingServerSocket extends TServerTransport {
 	//
 	public function onRequest($clientSocket, $events, $arg) {
 		try {
-			call_user_func($this->callback);
-		}
-		catch(Exception $e) {
+			$transport = new TNonblockingSocket($clientSocket);
+			call_user_func($this->callback, $transport);
+		} catch(Exception $e) {
 			event_del($arg[0]);
 			event_free($arg[0]);
 
@@ -66,4 +67,9 @@ class TNonblockingServerSocket extends TServerTransport {
 			return;
 		}
 	}
+
+	public function setCallback($callback) {
+		$this->callback = $callback;
+	}
+
 }

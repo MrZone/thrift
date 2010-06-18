@@ -11,8 +11,7 @@ class TNonblockingServer extends TServer {
 		$this->transport_->close();
 	}
 
-	public function handleRequest() {
-		$transport = new TBufferedTransport(new TSocket());
+	public function handleRequest(TTransport $transport) {
 		$protocol = new TBinaryProtocol($transport, true, true);
 		$this->processor_->process($protocol, $protocol);
 	}
