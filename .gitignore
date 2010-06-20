@@ -55,6 +55,8 @@
 /lib/py/build
 /lib/rb/Makefile
 /lib/rb/Makefile.in
+/lib/php/src/gen-php
+/lib/php/src/gen-phpi
 /libtool
 /ltmain.sh
 /missing

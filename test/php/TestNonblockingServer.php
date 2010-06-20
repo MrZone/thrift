@@ -39,7 +39,7 @@ require_once $GEN_DIR.'/ThriftTest/ThriftTest_types.php';
 $host = 'localhost';
 $port = 9090;
 
-class TestHandler {
+class TestHandler implements ThriftTest {
 
 	function testVoid() {
 		print 'testVoid()';
@@ -123,3 +123,11 @@ class TestHandler {
 	}
 
 }
+
+
+$handler = new TestHandler();
+$processor = new ThriftTestProcessor($handler);
+$transport = new TNonblockingServerSocket();
+
+$server = new TNonblockingServer($processor, $transport);
+$server->serve();

@@ -23,14 +23,14 @@ target: all
 # Tools
 THRIFT = ../../compiler/cpp/thrift
 
-all: normal inline
+all: normal inline 
 
 normal: stubs
 
 inline: stubs-inline
 
 stubs: ../ThriftTest.thrift
-	$(THRIFT) --gen php ../ThriftTest.thrift
+	$(THRIFT) --gen php:server ../ThriftTest.thrift
 
 stubs-inline: ../ThriftTest.thrift
 	$(THRIFT) --gen php:inlined ../ThriftTest.thrift

@@ -2,6 +2,7 @@
 class TNonblockingServerSocket extends TServerTransport {
 	public $callback;
 	protected $port_ = 0;
+	protected $host_ = '0.0.0.0';
 	protected $handle_;
 	protected $errno_ = 0;
 	protected $errstr_ = '';
@@ -17,7 +18,7 @@ class TNonblockingServerSocket extends TServerTransport {
 	 * Start listening
 	 */
 	public function listen() {
-		$this->handle_ = stream_socket_server("tcp://$host:$port", $this->errno_, $this->errstr_);
+		$this->handle_ = stream_socket_server("tcp://{$this->host_}:{$this->port_}", $this->errno_, $this->errstr_);
 		stream_set_blocking($this->handle_, 0); // no blocking
 
 		$this->base_ = event_base_new();
