@@ -34,13 +34,13 @@ class TNonblockingServerSocket extends TServerTransport {
 
 	//
 	public function close() {
-		@stream_socket_shutdown($this->serverSocket_, STREAM_SHUT_RDWR);
-		@fclose($this->serverSocket_);
+		@stream_socket_shutdown($this->handle_, STREAM_SHUT_RDWR);
+		@fclose($this->handle_);
 	}
 
 	//
 	public function onConnect() {
-		$clientSocket = @stream_socket_accept($this->serverSocket_);
+		$clientSocket = stream_socket_accept($this->handle_);
 		stream_set_blocking($clientSocket, 0);
 		$clientEvent = event_new();
 		event_set($clientEvent, $clientSocket, EV_READ | EV_PERSIST, array(
