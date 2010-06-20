@@ -55,8 +55,7 @@
 /lib/py/build
 /lib/rb/Makefile
 /lib/rb/Makefile.in
-/lib/php/src/gen-php
-/lib/php/src/gen-phpi
+/lib/php/src/packages
 /libtool
 /ltmain.sh
 /missing
@@ -86,6 +85,9 @@
 /test/py/Makefile
 /test/py/Makefile.in
 /test/py/gen-py
+/test/php/gen-php
+/test/php/gen-phpi
 /test/rb/Makefile
 /test/rb/Makefile.in
 /ylwrap
+*.swp

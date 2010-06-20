@@ -19,15 +19,15 @@
 
 <?php
 
+/** Set the Thrift root */
+$GLOBALS['THRIFT_ROOT'] = '../../lib/php/src';
+
 if (!isset($GEN_DIR)) {
-  $GEN_DIR = 'gen-php';
+  $GEN_DIR = $GLOBALS['THRIFT_ROOT'].'/packages/';
 }
 if (!isset($MODE)) {
   $MODE = 'normal';
 }
-
-/** Set the Thrift root */
-$GLOBALS['THRIFT_ROOT'] = '../../lib/php/src';
 
 /** Include the Thrift base */
 require_once $GLOBALS['THRIFT_ROOT'].'/Thrift.php';

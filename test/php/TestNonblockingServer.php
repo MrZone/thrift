@@ -18,11 +18,11 @@
 # under the License.
 #
 
-if (!isset($GEN_DIR)) {
-  $GEN_DIR = 'gen-php';
-}
-
 $GLOBALS['THRIFT_ROOT'] = realpath(dirname(__FILE__).'/../..').'/lib/php/src';
+
+if (!isset($GEN_DIR)) {
+  $GEN_DIR = $GLOBALS['THRIFT_ROOT'].'/packages/';
+}
 
 require_once $GLOBALS['THRIFT_ROOT'].'/Thrift.php';
 require_once $GLOBALS['THRIFT_ROOT'].'/protocol/TBinaryProtocol.php';
@@ -39,7 +39,7 @@ require_once $GEN_DIR.'/ThriftTest/ThriftTest_types.php';
 $host = 'localhost';
 $port = 9090;
 
-class TestHandler implements ThriftTest {
+class TestHandler implements ThriftTestIf {
 
 	function testVoid() {
 		print 'testVoid()';
@@ -98,6 +98,19 @@ class TestHandler implements ThriftTest {
 		print 'done sleeping';
 	}
 
+  function testInsanity($argument) {
+	  return $argument;
+  }
+
+  function testTypedef($thing) {
+    return $thing;
+  }
+
+	function testMapMap($hello) {
+		return $hello;
+	}
+
+
 	function testNest($thing) {
 		return $thing;
 	}
@@ -122,6 +135,35 @@ class TestHandler implements ThriftTest {
 		return $thing;
 	}
 
+  function testMulti($arg0, $arg1, $arg2, $arg3, $arg4, $arg5) {
+    printf("testMulti()\n");
+
+	/*
+    hello.string_thing = "Hello2";
+    hello.byte_thing = arg0;
+    hello.i32_thing = arg1;
+    hello.i64_thing = (int64_t)arg2;
+	*/
+  }
+
+  function testMultiException($arg0, $arg1) {
+    printf("testMultiException(%s, %s)\n", $arg0, $arg1);
+
+    if ($arg0 == "Xception") {
+		$x = Xception();
+		$x->errorCode = 1001;
+		$x->message = 'This is an Xception';
+		throw $x;
+    } else if ($arg0 == "Xception2") {
+		$x = Xception();
+		$x->errorCode = 2002;
+		$x->message = 'This is an Xception2';
+		throw $x;
+    } else {
+      //result.string_thing = $arg1;
+      return;
+    }
+  }
 }
 
 

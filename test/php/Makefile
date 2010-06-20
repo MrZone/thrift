@@ -23,12 +23,15 @@ target: all
 # Tools
 THRIFT = ../../compiler/cpp/thrift
 
-all: normal inline 
+all: normal inline link
 
 normal: stubs
 
 inline: stubs-inline
 
+link:
+	rsync -avz gen-*/* ../../lib/php/src/packages/
+	
 stubs: ../ThriftTest.thrift
 	$(THRIFT) --gen php:server ../ThriftTest.thrift
 
