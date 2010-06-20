@@ -18,87 +18,108 @@
 # under the License.
 #
 
+if (!isset($GEN_DIR)) {
+  $GEN_DIR = 'gen-php';
+}
+
+$GLOBALS['THRIFT_ROOT'] = realpath(dirname(__FILE__).'/../..').'/lib/php/src';
+
+require_once $GLOBALS['THRIFT_ROOT'].'/Thrift.php';
+require_once $GLOBALS['THRIFT_ROOT'].'/protocol/TBinaryProtocol.php';
+require_once $GLOBALS['THRIFT_ROOT'].'/transport/TServerTransport.php';
+require_once $GLOBALS['THRIFT_ROOT'].'/transport/TNonblockingServerSocket.php';
+require_once $GLOBALS['THRIFT_ROOT'].'/transport/TBufferedTransport.php';
+require_once $GLOBALS['THRIFT_ROOT'].'/server/TServer.php';
+require_once $GLOBALS['THRIFT_ROOT'].'/server/TNonblockingServer.php';
+
+/** Include the generated code */
+require_once $GEN_DIR.'/ThriftTest/ThriftTest.php';
+require_once $GEN_DIR.'/ThriftTest/ThriftTest_types.php';
+
+$host = 'localhost';
+$port = 9090;
+
 class TestHandler {
 
-  function testVoid() {
-    print 'testVoid()';
-  }
+	function testVoid() {
+		print 'testVoid()';
+	}
 
-  function testString($str) {
-    print sprintf('testString(%s)', $str);
-    return $str;
-  }
+	function testString($str) {
+		print sprintf('testString(%s)', $str);
+		return $str;
+	}
 
-  function testByte($byte) {
-    print sprintf('testByte(%d)', $byte);
-    return $byte;
-  }
+	function testByte($byte) {
+		print sprintf('testByte(%d)', $byte);
+		return $byte;
+	}
 
-  function testI16($i16) {
-    print sprintf('testI16(%d)', $i16);
-    return $i16;
-  }
+	function testI16($i16) {
+		print sprintf('testI16(%d)', $i16);
+		return $i16;
+	}
 
-  function testI32($i32) {
-    print sprintf('testI32(%d)', $i32);
-    return $i32;
-  }
+	function testI32($i32) {
+		print sprintf('testI32(%d)', $i32);
+		return $i32;
+	}
 
-  function testI64($i64) {
-    print sprintf('testI64(%d)', $i64);
-    return $i64;
-  }
+	function testI64($i64) {
+		print sprintf('testI64(%d)', $i64);
+		return $i64;
+	}
 
-  function testDouble($dub) {
-    print sprintf('testDouble(%f)', $dub);
-    return $dub;
-  }
+	function testDouble($dub) {
+		print sprintf('testDouble(%f)', $dub);
+		return $dub;
+	}
 
-  function testStruct($thing) {
-    print sprintf('testStruct({%s, %d, %d, %d})', $thing->string_thing, $thing->byte_thing, $thing->i32_thing, $thing->i64_thing);
-    return $thing;
-  }
+	function testStruct($thing) {
+		print sprintf('testStruct({%s, %d, %d, %d})', $thing->string_thing, $thing->byte_thing, $thing->i32_thing, $thing->i64_thing);
+		return $thing;
+	}
 
-  function testException($str) {
-    print sprintf('testException(%s)', $str);
-    if ($str == 'Xception') {
-      $x = Xception();
-      $x->errorCode = 1001;
-      $x->message = $str;
-      throw $x;
-    } elseif ($str == "throw_undeclared") { 
-	throw ValueError("foo");
-}
-  }
+	function testException($str) {
+		print sprintf('testException(%s)', $str);
+		if ($str == 'Xception') {
+			$x = Xception();
+			$x->errorCode = 1001;
+			$x->message = $str;
+			throw $x;
+		} elseif ($str == "throw_undeclared") { 
+			throw ValueError("foo");
+		}
+	}
 
-  function testOneway($seconds) {
-    print sprintf('testOneway(%d) => sleeping...', $seconds);
-    sleep($seconds);
-    print 'done sleeping';
-  }
+	function testOneway($seconds) {
+		print sprintf('testOneway(%d) => sleeping...', $seconds);
+		sleep($seconds);
+		print 'done sleeping';
+	}
 
-  function testNest($thing) {
-    return $thing;
-  }
+	function testNest($thing) {
+		return $thing;
+	}
 
-  function testMap($thing) {
-    return $thing;
-  }
+	function testMap($thing) {
+		return $thing;
+	}
 
-  function testSet($thing) {
-    return $thing;
-  }
+	function testSet($thing) {
+		return $thing;
+	}
 
-  function testList($thing) {
-    return $thing;
-  }
+	function testList($thing) {
+		return $thing;
+	}
 
-  function testEnum($thing) {
-    return $thing;
-  }
+	function testEnum($thing) {
+		return $thing;
+	}
 
-  function testTypefunction($thing) {
-    return $thing;
-  }
+	function testTypefunction($thing) {
+		return $thing;
+	}
 
 }
