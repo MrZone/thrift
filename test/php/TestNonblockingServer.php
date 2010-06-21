@@ -84,7 +84,7 @@ class TestHandler implements ThriftTestIf {
 	function testException($str) {
 		print sprintf('testException(%s)', $str);
 		if ($str == 'Xception') {
-			$x = Xception();
+			$x = new Xception();
 			$x->errorCode = 1001;
 			$x->message = $str;
 			throw $x;
@@ -151,12 +151,12 @@ class TestHandler implements ThriftTestIf {
     printf("testMultiException(%s, %s)\n", $arg0, $arg1);
 
     if ($arg0 == "Xception") {
-		$x = Xception();
+		$x = new Xception();
 		$x->errorCode = 1001;
 		$x->message = 'This is an Xception';
 		throw $x;
     } else if ($arg0 == "Xception2") {
-		$x = Xception();
+		$x = new Xception();
 		$x->errorCode = 2002;
 		$x->message = 'This is an Xception2';
 		throw $x;

@@ -282,6 +282,7 @@ print_r("testTypedef(309858235082523)");
 $uid = $testClient->testTypedef(309858235082523);
 print_r(" = $uid\n");
 
+if(0) {
 /**
  * NESTED MAP TEST
  */
@@ -339,6 +340,8 @@ foreach ($whoa as $key => $val) {
   print_r("}, ");
 }
 print_r("}\n");
+
+}
 
 /**
  * EXCEPTION TEST
