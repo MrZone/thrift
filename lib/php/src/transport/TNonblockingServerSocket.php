@@ -56,7 +56,7 @@ class TNonblockingServerSocket extends TServerTransport {
 	//
 	public function onRequest($clientSocket, $events, $arg) {
 		try {
-			$transport = new TNonblockingSocket($clientSocket);
+			$transport = new TBufferedTransport(new TNonblockingSocket($clientSocket));
 			call_user_func($this->callback, $transport);
 		} catch(Exception $e) {
 			event_del($arg[0]);
